@@ -8,6 +8,7 @@ class Node {
 class LinkedList {
   constructor() {
     this.head = null;
+    this.tail = null;
     this.size = 0;
   }
 
@@ -29,6 +30,25 @@ class LinkedList {
     }
 
     this.size++;
+  }
+
+  removeFromEnd() {
+    if (this.isEmpty()) return null;
+    const value = this.tail.value;
+    if (this.size === 1) {
+      this.head = null;
+      this.tail = null;
+      return value;
+    } else {
+      let prev = this.head;
+      while (prev.next && prev.next !== this.tail) {
+        prev = prev.next;
+      }
+      prev.next = null;
+      this.tail = prev;
+    }
+    this.size--;
+    return value;
   }
 
   appand(value) {
@@ -61,6 +81,34 @@ class LinkedList {
       prev.next = node;
       this.size++;
     }
+  }
+
+  search(value) {
+    if (this.isEmpty()) return "List is empty!";
+    let i = 0;
+    let curr = this.head;
+    while (curr) {
+      if (curr.value === value) {
+        return i;
+      }
+      curr = curr.next;
+      i++;
+    }
+
+    return "Value was not defined";
+  }
+
+  reverse() {
+    let prev = null;
+    let curr = this.head;
+    while (curr) {
+      let next = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = next;
+    }
+
+    this.head = prev;
   }
 
   removeFrom(index) {
@@ -127,24 +175,29 @@ class LinkedList {
   }
 }
 
-const list = new LinkedList();
-console.log(`Is list empty? ${list.isEmpty()}`);
-console.log(`Can you show me the size? ${list.getSize()}`);
-list.print();
-list.appand(10);
-list.print();
+module.exports = LinkedList;
 
-list.appand(20);
-list.appand(30);
-list.print();
-console.log(`Now show me size please? ${list.getSize()}`);
+//console.log(`Is list empty? ${list.isEmpty()}`);
+//console.log(`Can you show me the size? ${list.getSize()}`);
+//list.print();
+//list.appand(10);
+//list.print();
 
-list.insert(25, 2);
-list.print();
+//list.appand(20);
+//list.appand(30);
+//list.print();
+//console.log(`Now show me size please? ${list.getSize()}`);
 
-console.log(list.removeFrom(4));
-list.print();
+//list.insert(25, 2);
+//list.print();
 
-console.log(list.removeValue(20));
-console.log(list.removeValue(20));
-list.print();
+//console.log(list.removeFrom(4));
+//list.print();
+
+//console.log(list.search(10));
+//console.log(list.search(20));
+//console.log(list.search(25));
+//console.log(list.search(30));
+//console.log(list.search(40));
+//list.reverse();
+//list.print();
