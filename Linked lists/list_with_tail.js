@@ -35,7 +35,7 @@ class LinkedListWithTail {
   removeFromFront() {
     if (this.isEmpty()) return null;
     const value = this.head.value;
-    this.head = this.head.next;
+    this.head = this.head.next; //we lost the current head;
     this.size--;
     return value;
   }
@@ -65,8 +65,8 @@ class LinkedListWithTail {
       this.head = node;
       this.tail = node;
     } else {
-      this.tail.next = node;
-      this.tail = node;
+      this.tail.next = node; //this.tail.next = null; node = 6 ===>  this.tail.next = 6;
+      this.tail = node; // this.tail = 6; this.tail.next = null;
     }
     this.size++;
   }

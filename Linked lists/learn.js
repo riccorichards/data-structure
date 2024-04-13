@@ -25,8 +25,8 @@ class LinkedList {
     if (this.isEmpty()) {
       this.head = node;
     } else {
-      node.next = this.head;
-      this.head = node;
+      node.next = this.head; //new node's next is equal to head, that means it became the first node is the linked list;
+      this.head = node; //the head as we know it always should be the first node is the linked list, so we assign it to new added node
     }
 
     this.size++;
@@ -40,12 +40,13 @@ class LinkedList {
       this.tail = null;
       return value;
     } else {
-      let prev = this.head;
+      let prev = this.head; //we need to define prev to start iteration process from scratch'
       while (prev.next && prev.next !== this.tail) {
-        prev = prev.next;
+        //once the prev.next would be equal to the tail we need to done iteration process
+        prev = prev.next; //we need to move on the next node before the prev reach the last node;
       }
-      prev.next = null;
-      this.tail = prev;
+      prev.next = null; //we know that the next node it the last node so we simple remove it;
+      this.tail = prev; //the now the last node is prev
     }
     this.size--;
     return value;
@@ -56,11 +57,11 @@ class LinkedList {
     if (this.isEmpty()) {
       this.head = node;
     } else {
-      let prev = this.head;
+      let prev = this.head; //start iteration process from the scratch
       while (prev.next) {
-        prev = prev.next;
+        prev = prev.next; //move the next before we reached the last node, means the next is null;
       }
-      prev.next = node;
+      prev.next = node; //so if the next is null we assign it new node;
     }
     this.size++;
   }
@@ -70,15 +71,16 @@ class LinkedList {
       console.log("Provided Invalid Index (PII)");
     }
     if (index === 0) {
-      this.prepend(value);
+      this.prepend(value); //if index is 0. we know that 0 is the first element in the linked list;
     } else {
       const node = new Node(value);
       let prev = this.head;
       for (let i = 0; i < index - 1; i++) {
-        prev = prev.next;
+        //we start iteration process from the 0 index and running before end - 1,
+        prev = prev.next; //move on the next node;
       }
-      node.next = prev.next;
-      prev.next = node;
+      node.next = prev.next; //if prev.next is 5 and node is 4. now node.next is equal 5
+      prev.next = node; // and prev.next is 5 but we need to make it 4.
       this.size++;
     }
   }
@@ -102,13 +104,14 @@ class LinkedList {
     let prev = null;
     let curr = this.head;
     while (curr) {
-      let next = curr.next;
-      curr.next = prev;
-      prev = curr;
-      curr = next;
+      //it would be true until it reach null (move than existing values)
+      let next = curr.next; //curr = 0; curr.next/next = 1; (0 => 1)
+      curr.next = prev; //curr.next = null; curr = 0; next = 1; (null <= 0)
+      prev = curr; // prev = 0; (null <= 0)
+      curr = next; // curr = 1; curr.next = null; prev = 0; curr = 1; (null <= 0 <= 1)
     }
 
-    this.head = prev;
+    this.head = prev; //because head should be always 0;
   }
 
   removeFrom(index) {
@@ -118,15 +121,15 @@ class LinkedList {
     }
     let removedIndex;
     if (index === 0) {
-      removedIndex = this.head;
-      this.head = this.head.next;
+      removedIndex = this.head; //removedItem now it head's value;
+      this.head = this.head.next; //the current node is head.next;
     } else {
       let prev = this.head;
       for (let i = 0; i < index - 1; i++) {
         prev = prev.next;
       }
-      removedIndex = prev.next;
-      prev.next = removedIndex.next;
+      removedIndex = prev.next; //prev.next is the node which we need to remove; if prev.next = 5; now removedIndex also is equal 5;
+      prev.next = removedIndex.next; //now prev.next = equal 6 (removeIndex.next), so we lost value 5;
     }
     this.size--;
     return removedIndex.value;
@@ -139,7 +142,7 @@ class LinkedList {
     }
 
     if (this.head.value === value) {
-      this.head = this.head.next;
+      this.head = this.head.next; //current head lost;
       this.size--;
       return value;
     } else {
@@ -149,8 +152,9 @@ class LinkedList {
       }
 
       if (prev.next) {
+        //this means we catch the node which should removed;
         const removeNode = prev.next;
-        prev.next = removeNode.next;
+        prev.next = removeNode.next; //still we are lossing the node
         this.size--;
         return value;
       }

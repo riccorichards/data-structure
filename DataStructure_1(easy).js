@@ -1,4 +1,4 @@
-//todo 1=>> Given a sorted array of integers, write a function named summaryRanges that summarizes the array into a list of range strings. Each range string represents a consecutive sequence of numbers in the array. For sequences of more than one consecutive number, represent the range as "start->end". For individual numbers that do not form part of a consecutive sequence, include them as standalone strings. The function should return an array of these range strings in the order they appear in the input array.
+// 1=>> Given a sorted array of integers, write a function named summaryRanges that summarizes the array into a list of range strings. Each range string represents a consecutive sequence of numbers in the array. For sequences of more than one consecutive number, represent the range as "start->end". For individual numbers that do not form part of a consecutive sequence, include them as standalone strings. The function should return an array of these range strings in the order they appear in the input array.
 
 function summaryRanges(arr) {
   let result = [];
@@ -20,7 +20,7 @@ function summaryRanges(arr) {
   return result;
 }
 
-//todo 2=>> Write a function moveZeroes that takes an array of integers nums and moves all the 0's to the end of it while maintaining the relative order of the non-zero elements. This function should modify the array in place and does not return any value.
+// 2=>> Write a function moveZeroes that takes an array of integers nums and moves all the 0's to the end of it while maintaining the relative order of the non-zero elements. This function should modify the array in place and does not return any value.
 
 function moveZeroes(arr) {
   let insertPos = 0;
@@ -38,7 +38,7 @@ function moveZeroes(arr) {
 const test = [1, 0, 5, 6, 0, 8, 0, 9, 0, 56, -1, 6, 0];
 moveZeroes(test);
 
-//todo 3=> Function to generate Pascal's Triangle up to numRows
+// 3=> Function to generate Pascal's Triangle up to numRows
 
 function generatePascal(rowsLen) {
   const result = [];
@@ -57,7 +57,7 @@ function generatePascal(rowsLen) {
   return result;
 }
 
-//todo 4=> Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order. A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters. Input: digits = "23" Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+// 4=> Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order. A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters. Input: digits = "23" Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
 
 function letterCombinations(digits) {
   if (!digits.length || digits[0] === 1) return;
@@ -89,7 +89,7 @@ function letterCombinations(digits) {
   return result;
 }
 
-//todo 5=> Given a string s, find the length of the longest substring without repeating characters. Input: s = "abcabcbb"; Output: 3
+// 5=> Given a string s, find the length of the longest substring without repeating characters. Input: s = "abcabcbb"; Output: 3
 
 function longestSubstring(s) {
   let start = 0;
@@ -109,7 +109,7 @@ function longestSubstring(s) {
   return maxLength;
 }
 
-//todo 6=> Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words. Note that the same word in the dictionary may be reused multiple times in the segmentation. Input: s = "leetcode"; Output: wordDict = ["leet", "code"];
+// 6=> Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words. Note that the same word in the dictionary may be reused multiple times in the segmentation. Input: s = "leetcode"; Output: wordDict = ["leet", "code"];
 
 function wordBreak(s, wordDict) {
   const wordSet = new Set(wordDict);
@@ -125,4 +125,27 @@ function wordBreak(s, wordDict) {
     }
   }
   return dp[s.length];
+}
+
+// 7=> Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence in O(n) time. For example, if nums = [100, 4, 200, 1, 3, 2], the output should be 4, as the longest consecutive elements sequence is [1, 2, 3, 4]. Utilize hash tables in both tasks for efficient element lookup and to facilitate solving the problems.
+
+function longestConsecutive(arr) {
+  const hashTable = new Set(arr);
+  let longestStreak = 0;
+
+  for (const num of arr) {
+    if (!hashTable.has(num - 1)) {
+      let currentNum = num;
+      let currentStreak = 1;
+
+      while (hashTable.has(currentNum + 1)) {
+        currentNum += 1;
+        currentStreak += 1;
+      }
+
+      longestStreak = Math.max(longestStreak, currentStreak);
+    }
+  }
+
+  return longestStreak;
 }
